@@ -9,16 +9,18 @@ import {
 
 import Authentication from './pages/authentication.js';
 import Landing from './pages/landing.js';
+import Workouts from './pages/workouts.js';
 
 var ROUTES = {
   authentication: Authentication,
-  landing: Landing
+  landing: Landing,
+  workouts: Workouts
 };
 
 module.exports = React.createClass({
   renderScene: function(route,navigator){
     var Component = ROUTES[route.name];
-    return <Component route={route} navigator={navigator}/>
+    return <Component route={route} navigator={navigator} data={route.data}/>
   },
   render: function(){
     return <Navigator

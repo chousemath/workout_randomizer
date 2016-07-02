@@ -37,12 +37,7 @@ module.exports = React.createClass({
   getInitialState: function() {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
-      body_selection: {
-        label: 'Select a muscle group',
-        value: 'undefined'
-      },
-      dataSource: ds.cloneWithRows([]),
-      dataArray: []
+      dataSource: ds.cloneWithRows(this.props.data)
     }
   },
   render: function() {
@@ -53,32 +48,12 @@ module.exports = React.createClass({
               <ListView
                   dataSource={this.state.dataSource}
                   renderRow={(rowData) =>
-                    <Text>{rowData.body_part}</Text>
+                    <Text>{workout[rowData.body_part]}</Text>
                   }
                   style={styles.body_parts_listview} />
             </View>
             <View style={styles.body_parts_selector}>
-              <Picker
-                style={[styles.pickerStyle]}
-                selectedValue={this.state.body_selection}
-                onValueChange={(new_muscle_group) => this.setState({body_selection: new_muscle_group})}>
-                <Picker.Item label="Select a muscle group" value="undefined"/>
-                <Picker.Item label="Neck" value="Neck"/>
-                <Picker.Item label="Traps" value="Traps"/>
-                <Picker.Item label="Shoulders" value="Shoulders"/>
-                <Picker.Item label="Chest" value="Chest"/>
-                <Picker.Item label="Biceps" value="Biceps"/>
-                <Picker.Item label="Forearm" value="Forearm"/>
-                <Picker.Item label="Abs" value="Abs"/>
-                <Picker.Item label="Quads" value="Quads"/>
-                <Picker.Item label="Calves" value="Calves"/>
-                <Picker.Item label="Triceps" value="Triceps"/>
-                <Picker.Item label="Lats" value="Lats"/>
-                <Picker.Item label="Middle Back" value="Middleback"/>
-                <Picker.Item label="Lower Back" value="Lowerback"/>
-                <Picker.Item label="Glutes" value="Glutes"/>
-                <Picker.Item label="Hamstrings" value="Hamstrings"/>
-              </Picker>
+
             </View>
             <View style={styles.body_parts_selector}>
               <TouchableOpacity
@@ -108,7 +83,11 @@ module.exports = React.createClass({
               <TouchableOpacity
                 style={{width: 230, height: 60}}
                 onPress={()=> {
-                  this.props.navigator.push({name: 'workouts', data: this.state.dataArray});
+                  var current_data_array = this.state.dataArray;
+                  for (var i in current_data_array) {
+                    console.log(current_data_array[i]);
+                    console.log(workout[current_data_array[i].body_part]);
+                  }
                 }}
                 buttonBackgroundColor='transparent'>
                 <Text>log the workouts</Text>

@@ -108,7 +108,11 @@ module.exports = React.createClass({
               <TouchableOpacity
                 style={{width: 230, height: 60}}
                 onPress={()=> {
-                  this.props.navigator.push({name: 'workouts', data: this.state.dataArray});
+                  var current_data_array = this.state.dataArray;
+                  for (var i in current_data_array) {
+                    console.log(current_data_array[i]);
+                    console.log(workout[current_data_array[i].body_part]);
+                  }
                 }}
                 buttonBackgroundColor='transparent'>
                 <Text>log the workouts</Text>
